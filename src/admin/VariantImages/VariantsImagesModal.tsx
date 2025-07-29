@@ -153,7 +153,7 @@ const VariantsImagesModal = ({ variant, open, onClose, product, type, settings, 
 
   return (
     <FocusModal open={open} onOpenChange={onReset} modal>
-      <FocusModal.Content aria-describedby={undefined}>
+      <FocusModal.Content aria-describedby={undefined} className=''>
         <FocusModal.Title asChild>
           <h2 className='sr-only'>Variant Images</h2>
         </FocusModal.Title>
@@ -162,7 +162,7 @@ const VariantsImagesModal = ({ variant, open, onClose, product, type, settings, 
             Save and close
           </Button>
         </FocusModal.Header>
-        <FocusModal.Body>
+        <FocusModal.Body className='flex-1 min-h-0'>
           <form onSubmit={onSubmit} id='variant-images-form' className='h-full w-full'>
             <VariantsImagesMediaForm form={nestedForm(form, 'media')} type={type} setImageArr={setImageArr} imageArr={imageArr} />
           </form>

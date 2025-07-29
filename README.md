@@ -17,12 +17,12 @@ npm i medusa-variant-images
 **To use this plugin, you need to have the minimum versions of the following dependencies:**
 
 ```json
-"@medusajs/admin-sdk": "2.7.0",
-"@medusajs/cli": "2.7.0",
-"@medusajs/framework": "2.7.0",
-"@medusajs/icons": "2.7.0",
-"@medusajs/js-sdk": "2.7.0",
-"@medusajs/medusa": "2.7.0",
+"@medusajs/admin-sdk": "^2.8.2",
+"@medusajs/cli": "^2.8.2",
+"@medusajs/framework": "^2.8.2",
+"@medusajs/icons": "^2.8.2",
+"@medusajs/js-sdk": "^2.8.2",
+"@medusajs/medusa": "^2.8.2",
 ```
 
 ## Usage

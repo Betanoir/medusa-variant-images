@@ -21,12 +21,7 @@ type Props = {
   imageArr: ImageType[];
 };
 
-const VariantsImagesMediaForm = ({
-  form,
-  type,
-  setImageArr,
-  imageArr,
-}: Props) => {
+const VariantsImagesMediaForm = ({ form, type, setImageArr, imageArr }: Props) => {
   const { control, path, setValue } = form;
 
   const singleSelection = type === 'thumbnail';
@@ -35,9 +30,7 @@ const VariantsImagesMediaForm = ({
     name: path('images'),
   });
 
-  const prevSelectedImage = useRef<number | undefined>(
-    fields?.findIndex((field) => field.info.selected)
-  );
+  const prevSelectedImage = useRef<number | undefined>(fields?.findIndex((field) => field.info.selected));
 
   const handleFilesChosen = (files: File[]) => {
     if (files.length) {
@@ -69,45 +62,42 @@ const VariantsImagesMediaForm = ({
   return (
     <div className='flex size-full flex-col-reverse lg:grid lg:grid-cols-[1fr_560px]'>
       {fields.length > 0 ? (
-        <div className='bg-ui-bg-subtle size-full overflow-auto divide-y'>
-          <div className='p-6 flex flex-col space-y-1'>
+        <div className='bg-ui-bg-subtle size-full min-h-0 divide-y flex flex-col'>
+          <div className='p-6 flex flex-col h-fit space-y-1'>
             <h2>Uploads</h2>
             <p className='txt-small text-ui-fg-subtle'>
-              {type === 'thumbnail' ? (
-                <span>Select an image to use as the variant thumbnail.</span>
-              ) : (
-                <span>Select images to use as the variant images.</span>
-              )}
+              {type === 'thumbnail' ? <span>Select an image to use as the variant thumbnail.</span> : <span>Select images to use as the variant images.</span>}
             </p>
           </div>
-          <div className='grid h-fit auto-rows-auto grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-6 p-6'>
-            {fields.map((field, index) => {
-              return (
-                <Image
-                  key={field.id}
-                  image={field}
-                  index={index}
-                  form={form}
-                  onSelected={handleImageSelected}
-                  setImageArr={setImageArr}
-                  imageArr={imageArr}
-                  type={type}
-                />
-              );
-            })}
+          {/* Scrollable grid container */}
+          <div className='p-6 flex-1 h-full overflow-y-auto'>
+            <div className='grid auto-rows-auto grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-6'>
+              {fields.map((field, index) => {
+                return (
+                  <Image
+                    key={field.id}
+                    image={field}
+                    index={index}
+                    form={form}
+                    onSelected={handleImageSelected}
+                    setImageArr={setImageArr}
+                    imageArr={imageArr}
+                    type={type}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       ) : (
         <div className='w-[70%]'></div>
       )}
 
-      <div className='bg-ui-bg-base overflow-auto border-b px-6 py-4 lg:border-b-0 lg:border-l'>
+      <div className='bg-ui-bg-base h-fit border-b px-6 py-4 lg:border-b-0 lg:border-l'>
         <div className='flex flex-col gap-y-2'>
           <div className='flex flex-col gap-y-1'>
             <h2>Media</h2>
-            <p className='txt-small text-ui-fg-subtle'>
-              Add images to your product media.
-            </p>
+            <p className='txt-small text-ui-fg-subtle'>Add images to your product media.</p>
           </div>
 
           <div>
@@ -135,15 +125,7 @@ type ImageProps = {
   type: 'media' | 'thumbnail';
 };
 
-const Image = ({
-  image,
-  index,
-  form,
-  onSelected,
-  setImageArr,
-  imageArr,
-  type,
-}: ImageProps) => {
+const Image = ({ image, index, form, onSelected, setImageArr, imageArr, type }: ImageProps) => {
   const { control, path } = form;
 
   return (
@@ -152,8 +134,7 @@ const Image = ({
       control={control}
       render={({ field: { value, onChange } }) => {
         let selectedNumber: number | boolean = false;
-        if (value.selected)
-          selectedNumber = imageArr.findIndex((i) => i.url === image.url) + 1;
+        if (value.selected) selectedNumber = imageArr.findIndex((i) => i.url === image.url) + 1;
 
         return (
           <button
@@ -173,41 +154,27 @@ const Image = ({
               if (!value.selected) {
                 onSelected(index);
                 setImageArr((prevArr) => prevArr?.concat(image));
-              } else
-                setImageArr((prevArr) =>
-                  prevArr?.filter((i) => i.url !== image.url)
-                );
+              } else setImageArr((prevArr) => prevArr?.filter((i) => i.url !== image.url));
             }}
           >
             <img
               src={image.url}
               alt={image.name || 'Uploaded image'}
-              className={clx(
-                'rounded-lg object-cover bg-clip-border w-full h-full duration-300 brightness-100',
-                {
-                  'brightness-50': value.selected,
-                }
-              )}
+              className={clx('rounded-lg object-cover bg-clip-border w-full h-full duration-300 brightness-100', {
+                'brightness-50': value.selected,
+              })}
             />
 
             <span
-              className={clx(
-                'hidden group-hover:block absolute top-2 right-2 mix-blend-difference',
-                {
-                  'block mix-blend-normal': value.selected,
-                  'bg-neutral-950 flex rounded-full group-hover:flex flex-row items-center w-10 h-[19px] px-0.5':
-                    value.selected && type === 'media',
-                }
-              )}
+              className={clx('hidden group-hover:block absolute top-2 right-2 mix-blend-difference', {
+                'block mix-blend-normal': value.selected,
+                'bg-neutral-950 flex rounded-full group-hover:flex flex-row items-center w-10 h-[19px] px-0.5': value.selected && type === 'media',
+              })}
             >
               {value.selected ? (
                 <>
                   <CheckCircleSolid className='text-green-300' />
-                  {type === 'media' && (
-                    <span className='text-xs text-white font-bold ml-1.5 mt-px'>
-                      {selectedNumber}
-                    </span>
-                  )}
+                  {type === 'media' && <span className='text-xs text-white font-bold ml-1.5 mt-px'>{selectedNumber}</span>}
                 </>
               ) : (
                 <CircleDottedLine />
