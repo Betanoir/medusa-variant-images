@@ -72,6 +72,7 @@
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.2.25",
     "awilix": "^8.0.1",
+        "async-function": "1.0.0",
     "pg": "^8.13.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
