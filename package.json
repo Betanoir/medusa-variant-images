@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
-    "async-function": "1.0.0",
+    "async-function": "1.0.0"
   },
   "peerDependencies": {
     "@medusajs/admin-sdk": "^2.8.2",
