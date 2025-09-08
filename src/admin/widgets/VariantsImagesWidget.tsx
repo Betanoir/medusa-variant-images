@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, clx, DropdownMenu, Heading, Table, toast, Toaster, Tooltip } from '@medusajs/ui';
+import { Button, clx, DropdownMenu, Heading, Table, toast, Toaster, Tooltip, TooltipProvider } from '@medusajs/ui';
 import { AdminProduct, AdminProductOption, AdminProductVariant, DetailWidgetProps } from '@medusajs/framework/types';
 import { ArrowPath, EllipsisHorizontal, PencilSquare, ThumbnailBadge } from '@medusajs/icons';
 import VariantsImagesModal from '../VariantImages/VariantsImagesModal';
@@ -115,7 +115,7 @@ const VariantsImagesWidget = ({ data }: DetailWidgetProps<AdminProduct>) => {
   const { currentVariants } = paginationOptions;
 
   return (
-    <>
+    <TooltipProvider>
       <Toaster />
       <div className='divide-y shadow-elevation-card-rest bg-ui-bg-base w-full rounded-lg divide-y p-0'>
         <div className='flex flex-row justify-between items-center px-6 py-4'>
@@ -243,7 +243,7 @@ const VariantsImagesWidget = ({ data }: DetailWidgetProps<AdminProduct>) => {
           notify={toast}
         />
       )}
-    </>
+    </TooltipProvider>
   );
 };
 
